@@ -7,11 +7,13 @@ const Form = () => {
     const dispatch=useDispatch()
 
     const {edit}=useSelector((state)=>state.todos)
+    const {dark}=useSelector((state)=>state.theam)
 
     const [title,setTitle]=useState()
     const [description,setDescription]=useState()
 
     const handleSubmit=(e)=>{
+      
        e.preventDefault()
        !edit.isEdit?
        dispatch(add({_id:crypto.randomUUID(),title,description})):dispatch(update({_id:edit.todo._id,title,description}))
@@ -26,7 +28,9 @@ const Form = () => {
 
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={
+      dark?'bg-gray-600':"bg-white"
+    } onSubmit={handleSubmit}>
         <input required onChange={(e)=>setTitle(e.target.value)} className='w-full my-1 p-2 border' value={title} type="text" />
         <input required onChange={(e)=>setDescription(e.target.value)} className='w-full my-1 p-2 border' value={description} type="text" />
         <button  className='w-full text-white  bg-green-800 p-2 font-bold'>Submit</button>

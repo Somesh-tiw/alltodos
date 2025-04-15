@@ -1,10 +1,11 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { edit, remove } from '../features/todos/todoSlice'
 
 const Listitem = ({item}) => {
 
     const dispatch=useDispatch()
+    const {dark}=useSelector((state)=>state.theam)
 
     const handleRemove=(id)=>{
         dispatch(remove(id))
@@ -14,11 +15,11 @@ const Listitem = ({item}) => {
        dispatch(edit(item))
     }
   return (
-    <li className='flex bg-black justify-between items-center my-1 p-5'>
+    <li className={dark?"flex bg-gray-600 border justify-between items-center my-1 p-5":"flex bg-white justify-between items-center my-1 p-5"}>
     <span>
-      <h1 className='text-white'>id{item._id}</h1>
-      <h1 className='text-white'>title {item.title}</h1>
-      <h1 className='text-white'>description {item.description}</h1>
+      <h1 className={dark?'text-white':'text-black'}>id{item._id}</h1>
+      <h1 className={dark?'text-white':'text-black'}>title {item.title}</h1>
+      <h1 className={dark?'text-white':'text-black'}>description {item.description}</h1>
     </span>
     <span>
       <button onClick={()=>handleEdit(item)} className='p-2 rounded mx-1 text-white bg-green-700'>edit</button>
